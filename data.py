@@ -1,10 +1,5 @@
 goals = {"travel": "Для путешествий", "study": "Для учебы", "work": "Для работы", "relocate": "Для переезда"}
 
-
-def hello():
-    pass
-
-
 teachers = [
 
     {
