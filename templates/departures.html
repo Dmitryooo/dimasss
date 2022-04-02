@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% set sorted_price_min = tours.values()|sort(attribute="price") %}
+{% set sorted_nights_min = tours.values()|sort(attribute="nights") %}
+
+{% block content %}
+<main class="container mt-3">
+    <h1 class="display-5 mt-4">Летим {{ departures[departure][0:2].lower() }} {{ departures[departure][2:] }}</h1>
+    <p class="mb-4">Найдено {{ tours|length }} туров, от {{ (sorted_price_min|first).price }} до {{ (sorted_price_min|last).price }} и от {{ (sorted_nights_min|first).nights }} ночей до {{ (sorted_nights_min|last).nights }} ночей</p>
+    <!-- CARDS -->
+    <div class="row mt-5">
+        {% for id, value in tours.items() %}
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <img class="card-img-top embed-responsive-item" src="{{ value.picture }}" alt=""/>
+                </div>
+                <div class="card-body">
+                    <h2 class="h5 card-title">{{ value['title'] }}</h2>
+                    <p class="card-text">{{ value.description|truncate(130) }}</p>
+                    <a href="/tours/{{ id }}" class="btn btn-sm btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</main>
+{% endblock %}
